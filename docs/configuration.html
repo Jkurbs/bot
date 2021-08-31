@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="ie=edge" http-equiv="x-ua-compatible"/>
+  <meta content="Copy to clipboard" name="lang:clipboard.copy"/>
+  <meta content="Copied to clipboard" name="lang:clipboard.copied"/>
+  <meta content="en" name="lang:search.language"/>
+  <meta content="True" name="lang:search.pipeline.stopwords"/>
+  <meta content="True" name="lang:search.pipeline.trimmer"/>
+  <meta content="No matching documents" name="lang:search.result.none"/>
+  <meta content="1 matching document" name="lang:search.result.one"/>
+  <meta content="# matching documents" name="lang:search.result.other"/>
+  <meta content="[\s\-]+" name="lang:search.tokenizer"/>
+  <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&amp;display=fallback" rel="stylesheet"/>
+  <style>
+   body,
+      input {
+        font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif
+      }
+
+      code,
+      kbd,
+      pre {
+        font-family: "Roboto Mono", "Courier New", Courier, monospace
+      }
+  </style>
+  <link href="_static/stylesheets/application.css" rel="stylesheet"/>
+  <link href="_static/stylesheets/application-palette.css" rel="stylesheet"/>
+  <link href="_static/stylesheets/application-fixes.css" rel="stylesheet"/>
+  <link href="_static/fonts/material-icons.css" rel="stylesheet"/>
+  <meta content="#219600" name="theme-color"/>
+  <script src="_static/javascripts/modernizr.js">
+  </script>
+  <link href="_static/eye.png" rel="apple-touch-icon"/>
+  <title>
+   Configuration 🛠️ — GreedyBoy
+  </title>
+  <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+  <link href="_static/material.css" rel="stylesheet" type="text/css"/>
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+  </script>
+  <script src="_static/jquery.js">
+  </script>
+  <script src="_static/underscore.js">
+  </script>
+  <script src="_static/doctools.js">
+  </script>
+  <link href="_static/eye.ico" rel="shortcut icon"/>
+  <link href="genindex.html" rel="index" title="Index"/>
+  <link href="search.html" rel="search" title="Search"/>
+  <link href="code.html" rel="next" title="Code Documentation 📘"/>
+  <link href="installation.html" rel="prev" title="Installation 🏗️"/>
+  <link href="_static/eye.png" rel="apple-touch-icon"/>
+ </head>
+ <body data-md-color-accent="amber" data-md-color-primary="yellow" dir="ltr">
+  <svg class="md-svg">
+   <defs data-children-count="0">
+    <svg height="448" id="__github" viewbox="0 0 416 448" width="416" xmlns="http://www.w3.org/2000/svg">
+     <path d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z" fill="currentColor">
+     </path>
+    </svg>
+   </defs>
+  </svg>
+  <input class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+  <input class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+  <label class="md-overlay" data-md-component="overlay" for="__drawer">
+  </label>
+  <a class="md-skip" href="#configuration" tabindex="1">
+   Skip to content
+  </a>
+  <header class="md-header" data-md-component="header">
+   <nav class="md-header-nav md-grid">
+    <div class="md-flex navheader">
+     <div class="md-flex__cell md-flex__cell--shrink">
+      <a class="md-header-nav__button md-logo" href="index.html" title="GreedyBoy">
+       <img alt="GreedyBoy logo" height="26" src="_static/eye.png"/>
+      </a>
+     </div>
+     <div class="md-flex__cell md-flex__cell--shrink">
+      <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer">
+      </label>
+     </div>
+     <div class="md-flex__cell md-flex__cell--stretch">
+      <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+       <span class="md-header-nav__topic">
+        GreedyBoy
+       </span>
+       <span class="md-header-nav__topic">
+        Configuration 🛠️
+       </span>
+      </div>
+     </div>
+     <div class="md-flex__cell md-flex__cell--shrink">
+      <label class="md-icon md-icon--search md-header-nav__button" for="__search">
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+       <label class="md-search__overlay" for="__search">
+       </label>
+       <div class="md-search__inner" role="search">
+        <form action="search.html" class="md-search__form" method="GET" name="search">
+         <input autocapitalize="off" autocomplete="off" class="md-search__input" data-md-component="query" data-md-state="active" name="q" placeholder="Search" spellcheck="false" type="text"/>
+         <label class="md-icon md-search__icon" for="__search">
+         </label>
+         <button class="md-icon md-search__icon" data-md-component="reset" tabindex="-1" type="reset">
+          
+         </button>
+        </form>
+        <div class="md-search__output">
+         <div class="md-search__scrollwrap" data-md-scrollfix="">
+          <div class="md-search-result" data-md-component="result">
+           <div class="md-search-result__meta">
+            Type to start searching
+           </div>
+           <ol class="md-search-result__list">
+           </ol>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="md-flex__cell md-flex__cell--shrink">
+      <div class="md-header-nav__source">
+       <a class="md-source" data-md-source="github" href="https://github.com/kevinpruvost/GreedyBoy/" title="Go to repository">
+        <div class="md-source__icon">
+         <svg height="28" viewbox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <use height="24" width="24" xlink:href="#__github">
+          </use>
+         </svg>
+        </div>
+        <div class="md-source__repository">
+         GreedyBoy
+        </div>
+       </a>
+      </div>
+     </div>
+    </div>
+   </nav>
+  </header>
+  <div class="md-container">
+   <nav class="md-tabs" data-md-component="tabs">
+    <div class="md-tabs__inner md-grid">
+     <ul class="md-tabs__list">
+      <li class="md-tabs__item">
+       <a class="md-tabs__link" href="index.html">
+        Main Page
+       </a>
+      </li>
+      <li class="md-tabs__item">
+       <a class="md-tabs__link" href="https://github.com/kevinpruvost/GreedyBoy/">
+        Github
+       </a>
+      </li>
+     </ul>
+    </div>
+   </nav>
+   <main class="md-main">
+    <div class="md-main__inner md-grid" data-md-component="container">
+     <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+      <div class="md-sidebar__scrollwrap">
+       <div class="md-sidebar__inner">
+        <nav class="md-nav md-nav--primary" data-md-level="0">
+         <label class="md-nav__title md-nav__title--site" for="__drawer">
+          <a class="md-nav__button md-logo" href="index.html" title="GreedyBoy">
+           <img alt=" logo" height="48" src="_static/eye.png" width="48"/>
+          </a>
+          <a href="index.html" title="GreedyBoy">
+           GreedyBoy
+          </a>
+         </label>
+         <div class="md-nav__source">
+          <a class="md-source" data-md-source="github" href="https://github.com/kevinpruvost/GreedyBoy/" title="Go to repository">
+           <div class="md-source__icon">
+            <svg height="28" viewbox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+             <use height="24" width="24" xlink:href="#__github">
+             </use>
+            </svg>
+           </div>
+           <div class="md-source__repository">
+            GreedyBoy
+           </div>
+          </a>
+         </div>
+         <ul class="md-nav__list">
+          <li class="md-nav__item">
+           <a class="md-nav__link" href="installation.html">
+            Installation 🏗️
+           </a>
+          </li>
+          <li class="md-nav__item">
+           <input class="md-toggle md-nav__toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+           <label class="md-nav__link md-nav__link--active" for="__toc">
+            Configuration 🛠️
+           </label>
+           <a class="md-nav__link md-nav__link--active" href="#">
+            Configuration 🛠️
+           </a>
+           <nav class="md-nav md-nav--secondary">
+            <label class="md-nav__title" for="__toc">
+             Contents
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix="">
+             <li class="md-nav__item">
+              <a class="md-nav__link" href="#configuration--page-root">
+               Configuration 🛠️
+              </a>
+              <nav class="md-nav">
+               <ul class="md-nav__list">
+                <li class="md-nav__item">
+                 <a class="md-nav__link" href="#config-csv">
+                  config.csv
+                 </a>
+                 <nav class="md-nav">
+                  <ul class="md-nav__list">
+                   <li class="md-nav__item">
+                    <a class="md-nav__link" href="#table-representation-man-teacher">
+                     Table representation 👨‍🏫
+                    </a>
+                   </li>
+                   <li class="md-nav__item">
+                    <a class="md-nav__link" href="#file-representation-file-folder">
+                     File representation 📁
+                    </a>
+                   </li>
+                   <li class="md-nav__item">
+                    <a class="md-nav__link" href="#how-to-get-these-informations-card-file-box">
+                     How to get these informations 🗃️
+                    </a>
+                    <nav class="md-nav">
+                     <ul class="md-nav__list">
+                      <li class="md-nav__item">
+                       <a class="md-nav__link" href="#apikey-apiprivatekey">
+                        apiKey &amp; apiPrivateKey
+                       </a>
+                      </li>
+                      <li class="md-nav__item">
+                       <a class="md-nav__link" href="#githubtoken">
+                        githubToken
+                       </a>
+                      </li>
+                      <li class="md-nav__item">
+                       <a class="md-nav__link" href="#reponame">
+                        repoName
+                       </a>
+                      </li>
+                      <li class="md-nav__item">
+                       <a class="md-nav__link" href="#databranchname">
+                        dataBranchName
+                       </a>
+                       <nav class="md-nav">
+                        <ul class="md-nav__list">
+                         <li class="md-nav__item">
+                          <a class="md-nav__link" href="#github-desktop-computer">
+                           Github Desktop 💻
+                          </a>
+                         </li>
+                         <li class="md-nav__item">
+                          <a class="md-nav__link" href="#git-command-man-technologist">
+                           Git Command 👨‍💻
+                          </a>
+                         </li>
+                        </ul>
+                       </nav>
+                      </li>
+                     </ul>
+                    </nav>
+                   </li>
+                  </ul>
+                 </nav>
+                </li>
+               </ul>
+              </nav>
+             </li>
+             <li class="md-nav__item">
+              <a class="md-nav__extra_link" href="_sources/configuration.rst.txt">
+               Show Source
+              </a>
+             </li>
+            </ul>
+           </nav>
+           <ul class="md-nav__list">
+            <li class="md-nav__item">
+             <a class="md-nav__link" href="#config-csv">
+              config.csv
+             </a>
+            </li>
+           </ul>
+          </li>
+          <li class="md-nav__item">
+           <a class="md-nav__link" href="code.html">
+            Code Documentation 📘
+           </a>
+          </li>
+          <li class="md-nav__item">
+           <a class="md-nav__link" href="glossary.html">
+            Glossary 📕
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+     <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+      <div class="md-sidebar__scrollwrap">
+       <div class="md-sidebar__inner">
+        <nav class="md-nav md-nav--secondary">
+         <label class="md-nav__title" for="__toc">
+          Contents
+         </label>
+         <ul class="md-nav__list" data-md-scrollfix="">
+          <li class="md-nav__item">
+           <a class="md-nav__link" href="#configuration--page-root">
+            Configuration 🛠️
+           </a>
+           <nav class="md-nav">
+            <ul class="md-nav__list">
+             <li class="md-nav__item">
+              <a class="md-nav__link" href="#config-csv">
+               config.csv
+              </a>
+              <nav class="md-nav">
+               <ul class="md-nav__list">
+                <li class="md-nav__item">
+                 <a class="md-nav__link" href="#table-representation-man-teacher">
+                  Table representation 👨‍🏫
+                 </a>
+                </li>
+                <li class="md-nav__item">
+                 <a class="md-nav__link" href="#file-representation-file-folder">
+                  File representation 📁
+                 </a>
+                </li>
+                <li class="md-nav__item">
+                 <a class="md-nav__link" href="#how-to-get-these-informations-card-file-box">
+                  How to get these informations 🗃️
+                 </a>
+                 <nav class="md-nav">
+                  <ul class="md-nav__list">
+                   <li class="md-nav__item">
+                    <a class="md-nav__link" href="#apikey-apiprivatekey">
+                     apiKey &amp; apiPrivateKey
+                    </a>
+                   </li>
+                   <li class="md-nav__item">
+                    <a class="md-nav__link" href="#githubtoken">
+                     githubToken
+                    </a>
+                   </li>
+                   <li class="md-nav__item">
+                    <a class="md-nav__link" href="#reponame">
+                     repoName
+                    </a>
+                   </li>
+                   <li class="md-nav__item">
+                    <a class="md-nav__link" href="#databranchname">
+                     dataBranchName
+                    </a>
+                    <nav class="md-nav">
+                     <ul class="md-nav__list">
+                      <li class="md-nav__item">
+                       <a class="md-nav__link" href="#github-desktop-computer">
+                        Github Desktop 💻
+                       </a>
+                      </li>
+                      <li class="md-nav__item">
+                       <a class="md-nav__link" href="#git-command-man-technologist">
+                        Git Command 👨‍💻
+                       </a>
+                      </li>
+                     </ul>
+                    </nav>
+                   </li>
+                  </ul>
+                 </nav>
+                </li>
+               </ul>
+              </nav>
+             </li>
+            </ul>
+           </nav>
+          </li>
+          <li class="md-nav__item">
+           <a class="md-nav__extra_link" href="_sources/configuration.rst.txt">
+            Show Source
+           </a>
+          </li>
+          <li class="md-nav__item" id="searchbox">
+          </li>
+         </ul>
+        </nav>
+       </div>
+      </div>
+     </div>
+     <div class="md-content">
+      <article class="md-content__inner md-typeset" role="main">
+       <span id="configuration">
+       </span>
+       <h1 id="configuration--page-root">
+        Configuration 🛠️
+        <a class="headerlink" href="#configuration--page-root" title="Permalink to this headline">
+         ¶
+        </a>
+       </h1>
+       <h2 id="config-csv">
+        config.csv
+        <a class="headerlink" href="#config-csv" title="Permalink to this headline">
+         ¶
+        </a>
+       </h2>
+       <p>
+        Configuring
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          config.csv
+         </span>
+        </code>
+        is a mandatory step to make GreedyBoy able to work on its own.
+       </p>
+       <p>
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          config.csv
+         </span>
+        </code>
+        is formatted…. like a csv file.
+       </p>
+       <h3 id="table-representation-man-teacher">
+        Table representation 👨‍🏫
+        <a class="headerlink" href="#table-representation-man-teacher" title="Permalink to this headline">
+         ¶
+        </a>
+       </h3>
+       <blockquote>
+        <div>
+         <table>
+          <colgroup>
+           <col style="width: 13%"/>
+           <col style="width: 21%"/>
+           <col style="width: 19%"/>
+           <col style="width: 24%"/>
+           <col style="width: 22%"/>
+          </colgroup>
+          <thead>
+           <tr class="row-odd">
+            <th class="head">
+             <p>
+              <a class="reference internal" href="#apikey">
+               <span class="std std-ref">
+                apiKey
+               </span>
+              </a>
+             </p>
+            </th>
+            <th class="head">
+             <p>
+              <a class="reference internal" href="#apiprivatekey">
+               <span class="std std-ref">
+                apiPrivateKey
+               </span>
+              </a>
+             </p>
+            </th>
+            <th class="head">
+             <p>
+              <a class="reference internal" href="#githubtoken">
+               <span class="std std-ref">
+                githubToken
+               </span>
+              </a>
+             </p>
+            </th>
+            <th class="head">
+             <p>
+              <a class="reference internal" href="#reponame">
+               <span class="std std-ref">
+                repoName
+               </span>
+              </a>
+             </p>
+            </th>
+            <th class="head">
+             <p>
+              <a class="reference internal" href="#databranchname">
+               <span class="std std-ref">
+                dataBranchName
+               </span>
+              </a>
+             </p>
+            </th>
+           </tr>
+          </thead>
+          <tbody>
+           <tr class="row-even">
+            <td>
+             <p>
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                Api_Key
+               </span>
+              </code>
+             </p>
+            </td>
+            <td>
+             <p>
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                Api_Private_Key
+               </span>
+              </code>
+             </p>
+            </td>
+            <td>
+             <p>
+              <code class="docutils literal notranslate">
+               <span class="pre">
+                Github_Token
+               </span>
+              </code>
+             </p>
+            </td>
+            <td>
+             <p>
+              kevinpruvost/GreedyBoy (
+              <strong>
+               for instance
+              </strong>
+              )
+             </p>
+            </td>
+            <td>
+             <p>
+              data (
+              <strong>
+               for instance
+              </strong>
+              )
+             </p>
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </blockquote>
+       <h3 id="file-representation-file-folder">
+        File representation 📁
+        <a class="headerlink" href="#file-representation-file-folder" title="Permalink to this headline">
+         ¶
+        </a>
+       </h3>
+       <blockquote>
+        <div>
+         <div class="highlight-default notranslate">
+          <div class="highlight">
+           <pre><span></span>apiKey,apiPrivateKey,githubToken,repoName,dataBranchName
+`Api_Key`,`Api_Private_Key`,`Github_Token`,kevinpruvost/GreedyBoy,data
+</pre>
+          </div>
+         </div>
+        </div>
+       </blockquote>
+       <h3 id="how-to-get-these-informations-card-file-box">
+        How to get these informations 🗃️
+        <a class="headerlink" href="#how-to-get-these-informations-card-file-box" title="Permalink to this headline">
+         ¶
+        </a>
+       </h3>
+       <div class="admonition warning">
+        <p class="admonition-title">
+         Warning
+        </p>
+        <p>
+         Get yourself a
+         <a class="reference external" href="https://www.kraken.com/">
+          Kraken
+         </a>
+         account because GreedyBoy can’t work without it.
+        </p>
+        <p>
+         And also if you don’t have a
+         <a class="reference external" href="https://github.com/">
+          Github
+         </a>
+         account, create one.
+        </p>
+        <p>
+         In case you didn’t have a Github account, then you’ll be considered
+         <a class="reference external" href="https://www.youtube.com/watch?v=AIRNw9jaZro&amp;ab_channel=kraccbacc">
+          sussy
+         </a>
+         from now on.
+        </p>
+       </div>
+       <span id="apiprivatekey">
+       </span>
+       <span id="apikey">
+       </span>
+       <h4 id="apikey-apiprivatekey">
+        apiKey &amp; apiPrivateKey
+        <a class="headerlink" href="#apikey-apiprivatekey" title="Permalink to this headline">
+         ¶
+        </a>
+       </h4>
+       <blockquote>
+        <div>
+         <ol class="arabic simple">
+          <li>
+           <p>
+            Go on
+            <a class="reference external" href="https://www.kraken.com/u/trade#tab=overview">
+             Kraken Overview
+            </a>
+            and click on your
+            <strong>
+             Name, Security and API
+            </strong>
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot1.png" src="_images/screenshot1.png"/>
+         <ol class="arabic simple" start="2">
+          <li>
+           <p>
+            Click on
+            <strong>
+             Add key
+            </strong>
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot2.png" src="_images/screenshot2.png"/>
+         <p>
+          3. For the permissions, pick
+          <strong>
+           Query Funds, Query Open Orders &amp; Trades, Query Closed Orders &amp; Trades
+          </strong>
+          ,
+          <strong>
+           Create &amp; Modify Orders, Cancel/Close Orders and Access Websockets API
+          </strong>
+         </p>
+         <img alt="_images/screenshot3.png" src="_images/screenshot3.png"/>
+         <ol class="arabic simple" start="4">
+          <li>
+           <p>
+            Then you can finally access your
+            <strong>
+             API Key and API Private Key
+            </strong>
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot4.png" src="_images/screenshot4.png"/>
+        </div>
+       </blockquote>
+       <span id="id1">
+       </span>
+       <h4 id="githubtoken">
+        githubToken
+        <a class="headerlink" href="#githubtoken" title="Permalink to this headline">
+         ¶
+        </a>
+       </h4>
+       <blockquote>
+        <div>
+         <ol class="arabic simple">
+          <li>
+           <p>
+            Go in
+            <a class="reference external" href="https://github.com/settings/tokens">
+             here
+            </a>
+            and click on
+            <strong>
+             Generate new token
+            </strong>
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot11.png" src="_images/screenshot11.png"/>
+         <ol class="arabic simple" start="2">
+          <li>
+           <p>
+            Type in
+            <strong>
+             Note
+            </strong>
+            any name you want, just not something too sussy. Then check
+            <strong>
+             repo
+            </strong>
+            for the scopes
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot21.png" src="_images/screenshot21.png"/>
+         <ol class="arabic simple" start="3">
+          <li>
+           <p>
+            Then go down the page and click on
+            <strong>
+             Generate token
+            </strong>
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot31.png" src="_images/screenshot31.png"/>
+         <ol class="arabic simple" start="4">
+          <li>
+           <p>
+            Then it’s good to go, you got your
+            <strong>
+             Github Token
+            </strong>
+            !
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot41.png" src="_images/screenshot41.png"/>
+        </div>
+       </blockquote>
+       <span id="id2">
+       </span>
+       <h4 id="reponame">
+        repoName
+        <a class="headerlink" href="#reponame" title="Permalink to this headline">
+         ¶
+        </a>
+       </h4>
+       <blockquote>
+        <div>
+         <ol class="arabic simple">
+          <li>
+           <p>
+            Go on
+            <a class="reference external" href="https://github.com/">
+             github.com
+            </a>
+            and create a
+            <strong>
+             New
+            </strong>
+            repository.
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot12.png" src="_images/screenshot12.png"/>
+         <ol class="arabic simple" start="2">
+          <li>
+           <p>
+            Configure &amp; Create your repository.
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot22.png" src="_images/screenshot22.png"/>
+         <ol class="arabic simple" start="3">
+          <li>
+           <p>
+            You can now get
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              repoName
+             </span>
+            </code>
+            in these 2 fields.
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot32.png" src="_images/screenshot32.png"/>
+        </div>
+       </blockquote>
+       <span id="id3">
+       </span>
+       <h4 id="databranchname">
+        dataBranchName
+        <a class="headerlink" href="#databranchname" title="Permalink to this headline">
+         ¶
+        </a>
+       </h4>
+       <div class="admonition warning">
+        <p class="admonition-title">
+         Warning
+        </p>
+        <p>
+         For this last step, you will need
+         <a class="reference external" href="https://desktop.github.com/">
+          Github Dekstop
+         </a>
+         or whatever form of
+         <code class="docutils literal notranslate">
+          <span class="pre">
+           Git
+          </span>
+         </code>
+         you are using
+(
+         <strong>
+          Git Bash
+         </strong>
+         ,
+         <strong>
+          git (package from Linux)
+         </strong>
+         , …)
+        </p>
+       </div>
+       <h5 id="github-desktop-computer">
+        Github Desktop 💻
+        <a class="headerlink" href="#github-desktop-computer" title="Permalink to this headline">
+         ¶
+        </a>
+       </h5>
+       <blockquote>
+        <div>
+         <ol class="arabic simple">
+          <li>
+           <p>
+            Clone the repository wherever you want
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot42.png" src="_images/screenshot42.png"/>
+         <p>
+          2. If you want to make GreedyBoy use the main branch of your repository you cant stop there
+and just take
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            main
+           </span>
+          </code>
+          as your
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            `dataBranchName
+           </span>
+          </code>
+         </p>
+         <p>
+          However, if you want to make another branch, then click on
+          <strong>
+           Current branch
+          </strong>
+          , type in the new branch name and
+click on
+          <strong>
+           Create new branch
+          </strong>
+          .
+         </p>
+         <img alt="_images/screenshot5.png" src="_images/screenshot5.png"/>
+         <ol class="arabic simple" start="3">
+          <li>
+           <p>
+            Click on
+            <strong>
+             Publish branch
+            </strong>
+            and get your
+            <strong>
+             new branch name
+            </strong>
+            as
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              dataBranchName
+             </span>
+            </code>
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot6.png" src="_images/screenshot6.png"/>
+        </div>
+       </blockquote>
+       <h5 id="git-command-man-technologist">
+        Git Command 👨‍💻
+        <a class="headerlink" href="#git-command-man-technologist" title="Permalink to this headline">
+         ¶
+        </a>
+       </h5>
+       <blockquote>
+        <div>
+         <ol class="arabic simple">
+          <li>
+           <p>
+            So if you want to go with brute force, go on whatever
+            <strong>
+             shell
+            </strong>
+            you wanna use.
+           </p>
+          </li>
+         </ol>
+         <p>
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            cd
+           </span>
+          </code>
+          into the directory you want to clone your repository to.
+         </p>
+         <p>
+          Then launch this command
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            git
+           </span>
+           <span class="pre">
+            clone
+           </span>
+           <span class="pre">
+            $REPO_SSH_LINK|$REPO_HTTP_LINK
+           </span>
+          </code>
+          .
+         </p>
+         <img alt="_images/screenshot7.png" src="_images/screenshot7.png"/>
+         <ol class="arabic simple" start="2">
+          <li>
+           <p>
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              cd
+             </span>
+            </code>
+            into your repository,
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              git
+             </span>
+             <span class="pre">
+              branch
+             </span>
+             <span class="pre">
+              $BRANCH_NAME
+             </span>
+            </code>
+            , and
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              git
+             </span>
+             <span class="pre">
+              push
+             </span>
+             <span class="pre">
+              -u
+             </span>
+             <span class="pre">
+              origin
+             </span>
+             <span class="pre">
+              $BRANCH_NAME
+             </span>
+            </code>
+            .
+           </p>
+          </li>
+         </ol>
+         <img alt="_images/screenshot8.png" src="_images/screenshot8.png"/>
+         <ol class="arabic simple" start="3">
+          <li>
+           <p>
+            You’re good to go, take
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              $BRANCH_NAME
+             </span>
+            </code>
+            as your
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              dataBranchName
+             </span>
+            </code>
+            .
+           </p>
+          </li>
+         </ol>
+        </div>
+       </blockquote>
+      </article>
+     </div>
+    </div>
+   </main>
+  </div>
+  <footer class="md-footer">
+   <div class="md-footer-nav">
+    <nav class="md-footer-nav__inner md-grid">
+     <a class="md-flex md-footer-nav__link md-footer-nav__link--prev" href="installation.html" rel="prev" title="Installation 🏗️">
+      <div class="md-flex__cell md-flex__cell--shrink">
+       <i class="md-icon md-icon--arrow-back md-footer-nav__button">
+       </i>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+       <span class="md-flex__ellipsis">
+        <span class="md-footer-nav__direction">
+         Previous
+        </span>
+        Installation 🏗️
+       </span>
+      </div>
+     </a>
+     <a class="md-flex md-footer-nav__link md-footer-nav__link--next" href="code.html" rel="next" title="Code Documentation 📘">
+      <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+       <span class="md-flex__ellipsis">
+        <span class="md-footer-nav__direction">
+         Next
+        </span>
+        Code Documentation 📘
+       </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+       <i class="md-icon md-icon--arrow-forward md-footer-nav__button">
+       </i>
+      </div>
+     </a>
+    </nav>
+   </div>
+   <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+     <div class="md-footer-copyright">
+      <div class="md-footer-copyright__highlight">
+       © Copyright 2021, Kevin Pruvost.
+      </div>
+      Created using
+      <a href="http://www.sphinx-doc.org/">
+       Sphinx
+      </a>
+      3.5.4.
+             and
+      <a href="https://github.com/bashtage/sphinx-material/">
+       Material for
+              Sphinx
+      </a>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script src="_static/javascripts/application.js">
+  </script>
+  <script>
+   app.initialize({version: "1.0.4", url: {base: ".."}})
+  </script>
+ </body>
+</html>
