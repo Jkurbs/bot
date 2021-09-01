@@ -7,6 +7,8 @@ import tempfile
 import pandas as pd
 import requests
 import csv
+from datetime import datetime, timedelta
+
 
 # from pdoc import reset
 
@@ -64,15 +66,23 @@ class GreedyBoyDecisionMaker:
         ###################################
         # Getting data from the day before
         if not self.testTime:
-            lastTime = time.time() - 86401
+            today = datetime.today()
+            lastTime = today - timedelta(days=1)
 
             # GET PRICES
-            resp = self.krakenApi.GetPrices(self.initial, 5, lastTime)
+            # resp = self.krakenApi.GetPrices(self.initial, 5, lastTime)
+            resp = self.public_client.get_product_historic_rates(self.initial, lastTime.isoformat(), today.isoformat(), 900)
+            print("Res: ", resp)
             if resp: # If request actually got useful information
                 for result in resp:
+                    print("result: ", result)
                     self.dataMachine.appendFormated(result[0], result[1], result[2], result[3], result[4])
                 lastTime = resp[-1][0] - 1
-            resp = self.krakenApi.GetPrices(self.initial, 1, lastTime)
+            # resp = self.krakenApi.GetPrices(self.initial, 1, lastTime)
+            print("INITIAL: ", self.initial)
+            today = datetime.today()
+            lastTime = today - timedelta(days=1)
+            resp = self.public_client.get_product_historic_rates(self.initial, lastTime.isoformat(), today.isoformat(), 900)
             if resp:
                 for result in resp:
                     self.dataMachine.append(result[0], result[1])
@@ -109,7 +119,7 @@ class GreedyBoyDecisionMaker:
         self.getCryptoAndFiatBalance()
         print("Initial balance :")
         print("\t" + str(self.cryptoBalance) + " XDG")
-        print("\t" + str(self.fiatBalance) + " euros")
+        print("\t" + str(self.fiatBalance) + " usd")
         #print(self.dataMachine.ordered.to_csv(index=False))
 
     def AddOrderMax(self, buyOrSell: str):
@@ -130,7 +140,8 @@ class GreedyBoyDecisionMaker:
         elif buyOrSell == "sell":
             amount = min(amount, self.cryptoBalance * 0.99975)
 
-        self.krakenApi.AddOrder(buyOrSell, "market", amount, self.initial)
+        self.auth_client.place_market_order(product_id=self.initial,  side=buyOrSell, funds=amount)
+        # self.krakenApi.AddOrder(buyOrSell, "market", amount, self.initial)
         self.__writeRowToTemp({'Date': self.lastData, 'Price': str(price), 'Amount': str(amount), 'Order': buyOrSell})
         self.lastOrder = {'Date': self.lastData, 'Price': price, 'Amount': amount, 'Order': buyOrSell}
         if self.testTime:
@@ -144,20 +155,43 @@ class GreedyBoyDecisionMaker:
         else:
             self.getCryptoAndFiatBalance()
         self.highest = self.lowest = 50
-        print("Balance :" + str(self.cryptoBalance) + self.initial + ", " + str(self.fiatBalance) + " euros")
+        print("Balance :" + str(self.cryptoBalance) + self.initial + ", " + str(self.fiatBalance) + " usd")
         print("Added to reports : " + str(self.lastOrder))
 
     def addData(self, epoch, price):
         self.lastData = epoch
+        
         self.dataMachine.append(epoch, price, False)
 #        if self.dataMachine.intervalClosed():
         self.makeDecision()
         #print(self.dataMachine.iloc[:5].to_csv(index=False))
 
     def getCryptoAndFiatBalance(self):
-        self.cryptoBalance, self.fiatBalance = self.krakenApi.GetCryptoAndFiatBalance(self.initial, "EUR")
-        self.__setBuyOrSellPosition()
-        return self.cryptoBalance, self.fiatBalance
+        accounts = self.auth_client.get_accounts()
+        usd = None
+        link = None
+
+        for account in accounts: 
+            if account['currency'] == 'LINK':
+                link = account
+                print("LINK: ", account)
+
+            if account['currency'] == 'USD':
+                usd = account
+                print("USD: ", account)
+           
+        return link, usd
+
+        # for account in accounts: 
+        #     print("Account: ", account)
+        #     # print("LINK: ", account['currency'] == 'LINK')
+        #     # print("USD: ", account['currency'] == 'USD')
+        #     return account['currency'] == 'USD', account['currency'] == 'LINK'
+        # # self.cryptoBalance, self.fiatBalance = self.krakenApi.GetCryptoAndFiatBalance(self.initial, "EUR")
+        # self.__setBuyOrSellPosition()
+        # return self.cryptoBalance, self.fiatBalance
+
+    
 
     def setBuySellLimit(self, fiatValue: float):
         self.buySellLimit = fiatValue
@@ -267,8 +301,8 @@ class GreedyBoyDecisionMaker:
         #return scalpingStrategy()
         return emaCrossover()
 
-    def __init__(self, apiKey, b64secret, githubToken, repoName, dataBranchName, initial, todayDataFilename,
-                 ordersTempPath, ordersGithubPath, passphrase = None, bollingerTolerance: float = 20, testTime: float = None):
+    def __init__(self, apiKey, b64secret, passphrase, githubToken, repoName, dataBranchName, initial, todayDataFilename,
+                 ordersTempPath, ordersGithubPath, bollingerTolerance: float = 20, testTime: float = None):
         self.initial = initial
         self.dataPathWrite = tempfile.gettempdir() + "/data" + initial + "_old.csv"
         self.githubDataFilename = time.strftime('%d-%m-%Y', time.localtime(time.time() - 86400)) + ".csv"
@@ -276,7 +310,7 @@ class GreedyBoyDecisionMaker:
 
         self.ordersDataTempPath, self.ordersGithubPath = ordersTempPath, ordersGithubPath
 
-        self.apiKey, self.apiPrivateKey = apiKey, b64secret
+        self.apiKey, self.b64secret = apiKey, b64secret
         self.branchName = dataBranchName
 
         self.todayDataFilename = todayDataFilename

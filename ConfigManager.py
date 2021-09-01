@@ -13,4 +13,5 @@ def getConfig():
     with open("config.csv", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            return row['apiKey'], row['apiPrivateKey'], row['githubToken'], row['repoName'], row['dataBranchName']
+            print(row)
+            return row['apiKey'], row['b64secret'], row['passphrase'], row['githubToken'], row['repoName'], row['dataBranchName']

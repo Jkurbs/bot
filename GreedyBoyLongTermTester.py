@@ -6,22 +6,20 @@ from LongTermDecisionMaker import LongTermDecisionMaker
 from ConfigManager import getConfig
 from KrakenApi import get_kraken_token
 from KrakenApi import KrakenApi
+import cbpro
 import tempfile, time, csv, os
 from github import Github
 import pandas as pd
 
 # Testing with Dogecoin
-currencyInitial = "XDG"
-
-def getCryptoList(krakenApi) -> [str]:
-    return krakenApi.GetPairs("EUR")
+currencyInitial = "LINK"
 
 def main():
-    apiKey, apiPrivateKey, githubToken, repoName, dataBranchName = getConfig()
+    apiKey, b64secret, passphrase, githubToken, repoName, dataBranchName = getConfig()
     ordersDataPath = tempfile.gettempdir() + "/reports" + currencyInitial + ".csv"
     githubOrdersPath = "./reports/" + currencyInitial + "-reports.csv"
-    krakenToken = get_kraken_token(apiKey, apiPrivateKey)
-    krakenApi = KrakenApi(apiKey, apiPrivateKey, krakenToken)
+    auth_client = cbpro.AuthenticatedClient(apiKey, b64secret, passphrase)
+    public_client = cbpro.PublicClient()
 
     # Github repo
     g = Github(githubToken)
@@ -29,7 +27,7 @@ def main():
     greedyBoyRepo = g.get_repo(repoName)
 
     # Loop
-    pairs = getCryptoList(krakenApi)
+    pairs = public_client.get_product("USD")
     #pairs = ["XDGEUR"] # Only test XDG
 
     # Log test
@@ -59,7 +57,7 @@ def main():
             except: 0
 
         try:
-            prices = krakenApi.GetPricesFullname(pair, 1440, 1483142400) # since 2017 every 1 day
+            prices = public_client.get_product_historic_rates(pair, 1440, 1483142400) # since 2017 every 1 day
             frame = pd.DataFrame()
             for priceTab in prices:
                 frame = frame.append({
@@ -87,9 +85,9 @@ def main():
 
         # Test decision maker
         gbDM = LongTermDecisionMaker(
-            apiKey, apiPrivateKey, githubToken, repoName,   # Api Key, Api Private Key, Github repo
+            apiKey, b64secret, passphrase, githubToken, repoName,   # Api Key, Api Private Key, Github repo
             dataBranchName, currencyInitial, "dataPath",      # Branch name, trading initial, temp path of today's data
-            ordersDataPath, githubOrdersPath, krakenToken,  # temp path containing orders, kraken token
+            ordersDataPath, githubOrdersPath,  # temp path containing orders, kraken token
             testTime=1                               # Test Time
         )
         # To get for comparisons

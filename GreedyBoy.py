@@ -11,30 +11,30 @@ import tempfile
 from github import Github
 from GreedyBoyDecisionMaker import GreedyBoyDecisionMaker
 
-currencyInitials = ["XDG", "ETH"]
+currencyInitials = ["LINK-USD", "ETH-USD"]
 
 class GreedyBoy:
     ##
     ## AUTHENTIFICATION
     ##
 
-    def getToken(self):
-        """Gets the token delivered from Kraken."""
-        api_nonce = bytes(str(int(time.time() * 1000)), "utf-8")
-        api_request = urllib.request.Request("https://api.kraken.com/0/private/GetWebSocketsToken",
-                                             b"nonce=%s" % api_nonce)
-        api_request.add_header("API-Key", self.apiKey)
-        api_request.add_header("API-Sign", base64.b64encode(hmac.new(
-            base64.b64decode(self.apiPrivateKey),
-            b"/0/private/GetWebSocketsToken" + hashlib.sha256(api_nonce + b"nonce=%s" % api_nonce).digest(),
-            hashlib.sha512).digest()))
+    # def getToken(self):
+    #     """Gets the token delivered from Kraken."""
+    #     api_nonce = bytes(str(int(time.time() * 1000)), "utf-8")
+    #     api_request = urllib.request.Request("https://api.kraken.com/0/private/GetWebSocketsToken",
+    #                                          b"nonce=%s" % api_nonce)
+    #     api_request.add_header("API-Key", self.apiKey)
+    #     api_request.add_header("API-Sign", base64.b64encode(hmac.new(
+    #         base64.b64decode(self.apiPrivateKey),
+    #         b"/0/private/GetWebSocketsToken" + hashlib.sha256(api_nonce + b"nonce=%s" % api_nonce).digest(),
+    #         hashlib.sha512).digest()))
 
-        res = json.loads(urllib.request.urlopen(api_request).read())
-        try:
-            return res['result']['token']
-        except:
-            print("Didn't get that token.")
-            return self.getToken()
+    #     res = json.loads(urllib.request.urlopen(api_request).read())
+    #     try:
+    #         return res['result']['token']
+    #     except:
+    #         print("Didn't get that token.")
+    #         return self.getToken()
 
     ##
     ## REQUESTS
@@ -45,8 +45,8 @@ class GreedyBoy:
         for arg in args:
             self.limitTime = arg if arg else self.limitTime
         # Kraken Token
-        self.token = self.getToken()
-        print(self.token)
+        # self.token = self.getToken()
+        # print(self.token)
 
         self.dataFiles = dict()
         self.dataWriters = dict()
@@ -71,46 +71,51 @@ class GreedyBoy:
             if empty:
                 self.dataWriters[currencyInitials[i]].writeheader()
         # Decision Maker
+
+        # self, apiKey, b64secret, passphrase, githubToken, repoName, dataBranchName, initial, todayDataFilename,
+        #          ordersTempPath, ordersGithubPath, bollingerTolerance: float = 20, testTime: float = None
         self.decisionMaker = GreedyBoyDecisionMaker(
-            self.apiKey, self.apiPrivateKey, self.githubToken, self.repoName,     # Api Key, Api Private Key, Github repo
+            self.apiKey, self.b64secret, self.passphrase, self.githubToken, self.repoName,     # Api Key, Api Private Key, Github repo
             self.branchName, currencyInitials[0], self.dataPaths[0],              # Branch name, trading initial, temp path of today's data
-            self.ordersDataPath, self.githubOrdersPath, self.token                # temp path containing orders, kraken token
+            self.ordersDataPath, self.githubOrdersPath               # temp path containing orders, kraken token
         )
         self.decisionMaker.setBuySellLimit(10)
         self.decisionMaker.AddOrder("buy", 500)
         return
+
+
+
+    def ws_message(self, ws, message):
+        # Check timer
         self.decisionMakerTimer = time.time()
 
+        now = time.time()
+        if now - self.decisionMakerTimer >= 10: # if 10 seconds passed
+            self.decisionMakerTimer = now
+            self.decisionMaker.getCryptoAndFiatBalance()
 
-        def ws_message(ws, message):
-            # Check timer
-            now = time.time()
-            if now - self.decisionMakerTimer >= 10: # if 10 seconds passed
-                self.decisionMakerTimer = now
-                self.decisionMaker.getCryptoAndFiatBalance()
+        if now >= self.limitTime: self.ws.close()
+        j = json.loads(message)
+        for initial in currencyInitials:
+            initialEur = initial + "/EUR"
+            if isinstance(j, list) and j[-1] == initialEur:
+                for info in j[1]:
+                    print(initialEur + "[" + time.strftime('%d/%m/%Y %H:%M:%S', time.localtime(float(info[2]))) + "]: " + info[0] + "€")
+                    if initial == self.decisionMaker.initial:
+                        self.decisionMaker.addData(float(info[2]), float(info[0]))
+                    self.dataWriters[initial].writerow({"epoch": str(info[2]), "price": str(info[0])})
 
-            if now >= self.limitTime: self.ws.close()
-            j = json.loads(message)
-            for initial in currencyInitials:
-                initialEur = initial + "/EUR"
-                if isinstance(j, list) and j[-1] == initialEur:
-                    for info in j[1]:
-                        print(initialEur + "[" + time.strftime('%d/%m/%Y %H:%M:%S', time.localtime(float(info[2]))) + "]: " + info[0] + "€")
-                        if initial == self.decisionMaker.initial:
-                            self.decisionMaker.addData(float(info[2]), float(info[0]))
-                        self.dataWriters[initial].writerow({"epoch": str(info[2]), "price": str(info[0])})
+    def ws_open(self, ws):
+        for initial in currencyInitials:
+            ws.send('{"event":"subscribe", "subscription":{"name":"trade"}, "pair":["' + initial + '/EUR"]}')
+        ws.send('{"event":"subscribe", "subscription":{"name":"ownTrades", "token": "' + base64.b64decode(self.b64secret) +'"}}')
 
-        def ws_open(ws):
-            for initial in currencyInitials:
-                ws.send('{"event":"subscribe", "subscription":{"name":"trade"}, "pair":["' + initial + '/EUR"]}')
-            ws.send('{"event":"subscribe", "subscription":{"name":"ownTrades", "token": "' + base64.b64decode(self.apiPrivateKey) +'"}}')
+    def ws_close(ws):
+        print("Stopping !!!")
 
-        def ws_close(ws):
-            print("Stopping !!!")
-
-        self.ws = websocket.WebSocketApp("wss://ws.kraken.com/", on_open=ws_open, on_message=ws_message, on_close=ws_close)
-        self.decisionMaker.krakenApi.AddOrder("buy", "market", 100)
-        self.ws.run_forever()
+    # self.ws = websocket.WebSocketApp("wss://ws.kraken.com/", on_open=ws_open, on_message=ws_message, on_close=ws_close)
+    # self.decisionMaker.krakenApi.AddOrder("buy", "market", 100)
+    # self.ws.run_forever()
 
     ##
     ## GITHUB PART
@@ -123,9 +128,11 @@ class GreedyBoy:
         timer = time.perf_counter()
 
         def sendToGithub(dataFile, dataPath, githubPath: str):
+            print("Sent to github: ", githubPath)
             if not dataFile.closed:
                 dataFile.close()
             dataFile = open(dataPath, "r")
+            print("Sent to dataFile: ", dataFile)
             cnt = dataFile.read()
             dataFile.close()
 
@@ -134,6 +141,7 @@ class GreedyBoy:
             update = False
             try:
                 dirContent = self.greedyBoyRepo.get_contents(os.path.dirname(githubPath), self.branchName)
+                print("DIR COntent: ", dirContent)
 
                 ## Checks if file already exists
                 fName = os.path.basename(githubPath)
@@ -175,21 +183,31 @@ class GreedyBoy:
     ## INIT
     ##
 
-    def __init__(self, apiKey, apiPrivateKey, githubToken, repoName, dataBranchName, limitTime):
+    # self.apiKey, self.passphrase, self.githubToken, self.repoName,     # Api Key, Api Private Key, Github repo
+    #         self.branchName, currencyInitials[0], self.dataPaths[0],              # Branch name, trading initial, temp path of today's data
+    #         self.ordersDataPath, self.githubOrdersPath    
+
+
+
+    def __init__(self, apiKey, b64secret, passphrase, githubToken, repoName, dataBranchName, limitTime):
         self.dataPaths = [tempfile.gettempdir() + "/data" + initial + ".csv" for initial in currencyInitials]
         self.githubDataFilename = time.strftime('%d-%m-%Y', time.localtime(time.time())) + ".csv"
         self.githubDataPaths = ["./price_history/" + initial + "/" + self.githubDataFilename for initial in currencyInitials]
 
-        self.apiKey, self.apiPrivateKey = apiKey, apiPrivateKey
-        self.githubToken, self.branchName = githubToken, dataBranchName
+        print("GITHUB PATHS: ", self.githubDataPaths)
+
+        self.apiKey, self.b64secret, self.passphrase  = apiKey, b64secret, passphrase
+        self.githubToken, self.repoName, self.branchName = githubToken, repoName, dataBranchName
 
         # For orders history
         self.ordersDataPath = tempfile.gettempdir() + "/reports" + currencyInitials[0] + ".csv"
+        print("Currency initial: ", currencyInitials[0])
         self.githubOrdersPath = "./reports/" + currencyInitials[0] + "-reports.csv"
 
         # Github repo
+
+
         g = Github(githubToken)
-        self.repoName = repoName
         self.greedyBoyRepo = g.get_repo(repoName)
 
         # Start a new thread for the WebSocket interface
@@ -209,8 +227,9 @@ def main(event, context):
 
     timeLimit = timer if timer < today.timestamp() else today.timestamp()
 
-    apiKey, apiPrivateKey, githubToken, repoName, dataBranchName = ConfigManager.getConfig()
-    greedyBoy = GreedyBoy(apiKey, apiPrivateKey, githubToken, repoName, dataBranchName, timeLimit)
+    apiKey,b64secret,passphrase,githubToken,repoName,dataBranchName = ConfigManager.getConfig()
+    greedyBoy = GreedyBoy(apiKey, b64secret, passphrase, githubToken, repoName, dataBranchName, timeLimit)
+        
 
     while True:
         try:
